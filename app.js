@@ -1,21 +1,25 @@
-import chalk from 'chalk'
-import isEven from 'is-even'
+import express from 'express'
 
-// console.log(chalk.red.bold.bgWhite('app is running'))
+const app = express()
 
-for(let i = 1; i <= 10; i++) {
-    if(isEven(i)){
-        console.log(chalk.green(`${i} is even`))
-    } else {
-        console.log(chalk.red(`${i} is not even`))
-    }
-}
+app.set('view engine', 'ejs')
 
+app.get('/', (req, res) => {
+    res.render('index')
+})
 
-/*
+// create a route '/about' and send 'about page' as response
+app.get('/about', (req, res) => {
+    res.render('about')
+})
 
-    install is-even
-    loop through 1 - 10 checking for even numbers, each time
-    logging true in green if even, else logging false in red
+// return 404 error
+app.get('*', (req, res) => {
+    res.send('404 Error. Page Not Found!')
+})
 
-*/
+const PORT = process.env.PORT || 3000
+
+app.listen(PORT, () => {
+    console.log('Server up. Application running...')
+})
