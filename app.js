@@ -4,13 +4,17 @@ const app = express()
 
 app.set('view engine', 'ejs')
 
+let countries = ['fiji', 'thailand', 'phillipines', 'south korea', 'japan', 'vietnam']
+
 app.get('/', (req, res) => {
-    res.render('index')
+    res.render('index', {title: 'This the index page', countries: countries})
 })
+
+let name = 'valarie tila'
 
 // create a route '/about' and send 'about page' as response
 app.get('/about', (req, res) => {
-    res.render('about')
+    res.render('about', {name: name})
 })
 
 // return 404 error
