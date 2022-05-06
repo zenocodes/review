@@ -2,15 +2,21 @@ import express from 'express'
 
 const app = express()
 
+// set a tempate engine for the app, ejs (embedded javascript)
 app.set('view engine', 'ejs')
+
+// source static files from public
+app.use(express.static('public'))
+
 
 let countries = ['fiji', 'thailand', 'phillipines', 'south korea', 'japan', 'vietnam']
 
+let name = 'valarie tila'
+
 app.get('/', (req, res) => {
-    res.render('index', {title: 'This the index page', countries: countries})
+    res.render('index', {title: 'This the index page', countries: countries, name: name})
 })
 
-let name = 'valarie tila'
 
 // create a route '/about' and send 'about page' as response
 app.get('/about', (req, res) => {
