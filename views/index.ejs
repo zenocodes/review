@@ -1,33 +1,5 @@
 <%- include('partials/header') %>
 
-    <h1><%= title %></h1>
-
-    <% let gender = 'female', age = 6 %>
-
-    <% if(gender === 'female' && age >= 18) { %>
-        <p>This is a woman</p>
-        <p>Condition met</p>
-    <% } else { %>
-        <p>This is a girl</p>
-        <p>Condition not met</p>
-    <% } %>
-
-
-    <ol>
-        
-        <% for(let country of countries) { %>
-            <li><%= country %></li>
-        <% } %>
-
-
-    </ol>
-
-    <ul>
-
-        <% countries.forEach(country => { %>
-            <li><%= country %></li>
-        <% }) %>
-
-    </ul>
+    
 
 <%- include('partials/footer') %>
