@@ -1,0 +1,60 @@
+@font-face {
+    font-family: Quicksand;
+    src: url(Quicksand-VariableFont_wght.ttf);
+}
+
+* {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+    font-family: Quicksand;
+}
+
+.container {
+    padding-left: 100px;
+    padding-right: 100px;
+}
+
+header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 80px;
+    background-color: #fcae1e;
+}
+
+header p {
+    font-size: 38px;
+}
+
+nav li {
+    display: inline;
+    font-size: 17px;
+    margin-left: 5px;
+}
+
+nav a {
+    text-decoration: none;
+}
+
+.nav-link a {
+    color: black;
+}
+
+.nav-link a:hover {
+    text-decoration: underline black;
+    text-decoration-thickness: 2px;
+}
+
+#login a {
+    color: #000;
+    padding: 10px;
+    border: 1px solid #000;
+}
+
+#signup a {
+    color: #fff;
+    padding: 10px;
+    background-color: #000;
+    border: 1px solid #000;
+}
