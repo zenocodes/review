@@ -1,4 +1,5 @@
 import express from 'express'
+import bcrypt from 'bcrypt'
 
 const app = express()
 
@@ -8,20 +9,76 @@ app.set('view engine', 'ejs')
 // source static files from public
 app.use(express.static('public'))
 
+// configuration to access form information
+app.use(express.urlencoded({extended:false}))
 
-let countries = ['fiji', 'thailand', 'phillipines', 'south korea', 'japan', 'vietnam']
-
-let name = 'valarie tila'
+const users = [
+    {
+        id: 2,
+        fullname: 'Valarie Tila',
+        email: 'valarie@review.com',
+        password: '$2b$10$Mcjt.gCN82L3DTk2EFZkO.Rnk1j2KBu47ko734gTnwpqJWFoZ/10O'
+      }
+]
 
 app.get('/', (req, res) => {
-    res.render('index', {title: 'This the index page', countries: countries, name: name})
+    res.render('index')
 })
 
-
-// create a route '/about' and send 'about page' as response
-app.get('/about', (req, res) => {
-    res.render('about', {name: name})
+// display login form 
+app.get('/login' , (req, res) => {
+    res.render('login')
 })
+
+// submit login form 
+app.post('/login', (req, res) => {
+    
+    const user = users.find(user => user.email === req.body.email)
+
+    if(user) {
+        // authenticate
+        bcrypt.compare(req.body.password, user.password, (error, matches) => {
+            if(matches) {
+                console.log('grant access')
+            } else {
+                console.log('Email/Password mismatch')
+            }
+        })
+        
+    } else {
+        console.log('Error. Account does not exist. Please create one.')
+    }
+    
+})
+
+// display signup form 
+app.get('/signup', (req, res) => {
+    res.render('signup')
+})
+
+// submit signup form
+app.post('/signup', (req, res) => {
+
+    if(req.body.password === req.body.confirmPassword) {
+
+        bcrypt.hash(req.body.password, 10, (error, hash) => {
+            const user = {
+                id: users.length + 1,
+                fullname: req.body.fullname,
+                email: req.body.email,
+                password: hash
+            }
+            users.push(user)
+            console.log(user)
+            console.log('Account successfully created')
+        })
+        
+    } else {
+        console.log('Error. Password and Confirm password does not match.')
+    }
+
+})
+
 
 // return 404 error
 app.get('*', (req, res) => {
