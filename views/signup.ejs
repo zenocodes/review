@@ -1,0 +1,19 @@
+<%- include('partials/header') %>
+
+<main class="access-point">
+    <form action="/signup" method="post">
+        <p class="form-title">Sign Up</p>
+        <label for="">Full Name</label>
+        <input type="text" name="fullname" id="" required>
+        <label for="">Email Address</label>
+        <input type="email" name="email" id="" required>
+        <label for="">Password</label>
+        <input type="password" name="password" id="" required minlength="8">
+        <label for="">Confirm Password</label>
+        <input type="password" name="confirmPassword" id="" required minlength="8">
+        <input type="submit" value="Create Account">
+        <p>Already have an account? <a href="/login">Log In</a></p>
+    </form>
+</main>
+
+<%- include('partials/footer') %>
