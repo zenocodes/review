@@ -27,6 +27,11 @@ header p {
     font-size: 38px;
 }
 
+header p a {
+    text-decoration: none;
+    color: #000;
+}
+
 nav li {
     display: inline;
     font-size: 17px;
@@ -57,4 +62,49 @@ nav a {
     padding: 10px;
     background-color: #000;
     border: 1px solid #000;
+}
+
+.access-point {
+    height: 80vh;
+    display: grid;
+    place-items: center;
+}
+
+.access-point form {
+    width: 35%;
+    display: flex;
+    flex-direction: column;
+    padding: 15px;
+    border: 1px solid #f2f2f2;
+    background-color: #f2f2f2;
+    border-radius: 5px;
+}
+
+.access-point form .form-title {
+    text-align: center;
+    margin: 10px 0;
+    font-size: 24px;
+}
+
+.access-point form label {
+    font-size: 13px;
+    margin-bottom: 3px;
+}
+
+.access-point form input {
+    font-size: 19px;
+    padding: 5px;
+    margin-bottom: 5px;
+}
+
+.access-point form input[type='submit'] {
+    background-color: #fcae1e;
+    border: 1px solid #fcae1e;
+    margin: 5px 0;
+    font-weight: bold;
+}
+
+.access-point form p {
+    font-size: 15px;
+    margin-bottom: 10px;
 }
