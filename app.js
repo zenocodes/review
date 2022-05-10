@@ -27,7 +27,11 @@ app.get('/', (req, res) => {
 
 // display login form 
 app.get('/login' , (req, res) => {
-    res.render('login')
+    const user = {
+        email: '',
+        password: ''
+    }
+    res.render('login', {error: false, user: user})
 })
 
 // submit login form 
@@ -41,19 +45,35 @@ app.post('/login', (req, res) => {
             if(matches) {
                 console.log('grant access')
             } else {
-                console.log('Email/Password mismatch')
+                const user = {
+                    email: req.body.email,
+                    password: req.body.password
+                }
+                let message = 'Email/Password mismatch.'
+                res.render('login', {error: true, message: message, user: user})
             }
         })
         
     } else {
-        console.log('Error. Account does not exist. Please create one.')
+        const user = {
+            email: req.body.email,
+            password: req.body.password
+        }
+        let message = 'Account does not exist. Please create one.'
+        res.render('login', {error: true, message: message, user: user})
     }
     
 })
 
 // display signup form 
 app.get('/signup', (req, res) => {
-    res.render('signup')
+    const user = {
+        fullname: '',
+        email: '',
+        password: '',
+        confirmPassword: ''
+    }
+    res.render('signup', {error: false, user: user})
 })
 
 // submit signup form
@@ -61,20 +81,41 @@ app.post('/signup', (req, res) => {
 
     if(req.body.password === req.body.confirmPassword) {
 
-        bcrypt.hash(req.body.password, 10, (error, hash) => {
+        let user = users.find(user => user.email === req.body.email)
+
+        if(user) {
             const user = {
-                id: users.length + 1,
                 fullname: req.body.fullname,
                 email: req.body.email,
-                password: hash
+                password: req.body.password,
+                confirmPassword: req.body.confirmPassword
             }
-            users.push(user)
-            console.log(user)
-            console.log('Account successfully created')
-        })
-        
+            let message = 'Account already exists with the email provided.'
+            res.render('signup', {error: true, message: message, user: user})
+
+        } else {
+            bcrypt.hash(req.body.password, 10, (error, hash) => {
+                const user = {
+                    id: users.length + 1,
+                    fullname: req.body.fullname,
+                    email: req.body.email,
+                    password: hash
+                }
+                users.push(user)
+                console.log(user)
+                console.log('Account successfully created')
+            })
+        }
+
     } else {
-        console.log('Error. Password and Confirm password does not match.')
+        const user = {
+            fullname: req.body.fullname,
+            email: req.body.email,
+            password: req.body.password,
+            confirmPassword: req.body.confirmPassword
+        }
+        let message = 'Password and Confirm password does not match.'
+        res.render('signup', {error: true, message: message,user: user})
     }
 
 })

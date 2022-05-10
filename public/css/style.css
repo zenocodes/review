@@ -15,6 +15,14 @@
     padding-right: 100px;
 }
 
+.error {
+    color: #fff;
+    background-color: #ff0000;
+    padding: 10px;
+    text-align: center;
+    border-radius: 5px;
+}
+
 header {
     display: flex;
     justify-content: space-between;
