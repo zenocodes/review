@@ -116,3 +116,60 @@ nav a {
     font-size: 15px;
     margin-bottom: 10px;
 }
+
+
+#intro {
+    height: 380px;
+    background-image: url('../img/home-bg.jpg');
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    text-align: center;
+    opacity: 0.9;
+}
+
+#intro * {
+    width: 70%;
+    margin: 0 auto;
+}
+
+#about {
+    padding-top: 50px;
+    padding-bottom: 50px;
+}
+
+#rate-service {
+    padding-top: 50px;
+    padding-bottom: 50px;
+    display: flex;
+    background-color: #f2f2f2;
+    align-items: center;
+}
+
+#rate-service div {
+    width: 50%;
+}
+
+#rate-service img {
+    width: 100%;
+    border-radius: 7px;
+}
+
+#rate-service h1 {
+    padding-left: 10px;
+    margin-bottom: 16px;
+}
+
+#rate-service a {
+    background-color: #fcae1e;
+    border: 1px solid #fcae1e;
+    border-radius: 5px;
+    color: #fff;
+    font-size: 21px;
+    padding: 10px;
+    margin-left: 10px;
+    text-decoration: none;
+}
