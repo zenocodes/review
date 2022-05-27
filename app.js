@@ -1,6 +1,7 @@
 import express from 'express'
 import bcrypt from 'bcrypt'
 import mysql from 'mysql'
+import { render } from 'ejs'
 
 const app = express()
 
@@ -133,6 +134,11 @@ app.post('/signup', (req, res) => {
         res.render('signup', {error: true, message: message,user: user})
     }
 
+})
+
+// create business profile
+app.get('/create-business-profile', (req, res) => {
+    res.render('create-business-profile')
 })
 
 
