@@ -287,6 +287,37 @@ nav a {
 }
 
 
+/* create business profile */
+
+#business-profile h1 {
+    text-align: center;
+    margin: 8px 0;
+}
+
+#business-profile form {
+    margin: 0 auto;
+    width: 75%;
+    border: 1px solid #f8f2f2;
+    padding: 15px;
+}
+
+#business-profile .form-input {
+    margin-bottom: 8px;
+    display: flex;
+    justify-content: space-between;
+}
+
+#business-profile .form-input * {
+    font-size: 18px;
+}
+
+#business-profile .form-input input, #business-profile .form-input select {
+    width: 70%;
+}
+
+
+/* end. create business profile */
+
 
 footer {
     height: 60px;
