@@ -1,0 +1,67 @@
+<%- include('partials/header') %>
+
+    <div id="business-profile" class="container">
+        <h1>Create Your Business Profile</h1>
+        <form action="">
+            <div class="form-input">
+                <label for="">Name of Business</label>
+                <input type="text" name="businessName" id="">
+            </div>
+            <div class="form-input">
+                <label for="">Tag Line</label>
+                <input type="text" name="tagLine" id="">
+            </div>
+            <div class="form-input">
+                <label for="">Business Category</label>
+                <select name="businessCategory" id="business-category">
+                    <option value="">Select category</option>
+                </select>
+            </div>
+            <div class="form-input">
+                <label for="">Business Description</label>
+                <input type="text" name="businessDescription" id="">
+            </div>
+            <div class="form-input">
+                <label for="">Business Location</label>
+                <input type="text" name="businessLocation" id="">
+            </div>
+            <div class="form-input">
+                <label for="">Contact Person</label>
+                <input type="text" name="adminName" id="">
+            </div>
+            <div class="form-input">
+                <label for="">Phone number</label>
+                <input type="text" name="adminPhoneNumber" id="">
+            </div>
+            <div class="form-input">
+                <label for="">Email address</label>
+                <input type="email" name="adminEmail" id="">
+            </div>
+            <div class="form-input">
+                <label for="">Password</label>
+                <input type="password" name="adminPassword" id="">
+            </div>
+            <input type="submit" value="Create Profile">
+        </form>
+    </div>
+
+    <script>
+
+        const categories = [
+            'Hotels', 
+            'Food and drink businesses',
+            'Health and beauty businesses'
+        ]
+
+        let selectBusinessCategory = document.querySelector('#business-category')
+
+        categories.forEach(category => {
+            let option = document.createElement('option')
+            option.textContent = option.value = category
+            selectBusinessCategory.appendChild(option)
+        })
+
+
+    </script>
+
+<%- include('partials/footer') %>
