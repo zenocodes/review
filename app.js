@@ -1,7 +1,7 @@
 import express from 'express'
 import bcrypt from 'bcrypt'
 import mysql from 'mysql'
-import { render } from 'ejs'
+// import { render } from 'ejs'
 
 const app = express()
 
@@ -136,11 +136,72 @@ app.post('/signup', (req, res) => {
 
 })
 
-// create business profile
+// display create business profile form
 app.get('/create-business-profile', (req, res) => {
     res.render('create-business-profile')
 })
 
+// submit create business profile form
+app.post('/create-business-profile', (req, res) => {
+
+    const profile = {
+        business: {
+            name: req.body.businessName,
+            email: req.body.businessEmail,
+            tagLine: req.body.tagLine,
+            category: req.body.businessCategory,
+            description: req.body.businessDescription,
+            location: req.body.businessLocation
+        },
+        rep: {
+            name: req.body.adminName,
+            contacts: req.body.adminPhoneNumber,
+            email: req.body.adminEmail,
+            password: req.body.adminPassword,
+            cPassword: req.body.adminConfirmPassword
+        }
+    }
+
+    if(profile.rep.password === profile.rep.cPassword) {
+
+        let sql = 'SELECT * FROM business_profile WHERE b_email = ?'
+
+        connection.query(
+            sql, [profile.business.email], (error, results) => {
+                if(results.length > 0) {
+                    let message = 'Business profile with the email provided already existed.'
+                    res.render('create-business-profile', {error: true, message: message, profile: profile})
+                } else {
+                    bcrypt.hash(profile.rep.password, 10, (error, hash) => {
+                        let sql = 'INSERT INTO business_profile (b_name, b_email, b_tag_line, b_category, b_description, b_location, b_contact_person, b_phone_number, b_email_address, b_password) VALUES (?,?,?,?,?,?,?,?,?,?)'
+                        connection.query(
+                            sql, 
+                            [
+                                profile.business.name,
+                                profile.business.email,
+                                profile.business.tagLine,
+                                profile.business.category,
+                                profile.business.description,
+                                profile.business.location,
+                                profile.rep.name,
+                                profile.rep.contacts,
+                                profile.rep.email,
+                                hash
+                            ], 
+                            (error, results) => {
+                                res.send('business profile successfully created')
+                            }
+                        )
+                    })
+                }
+            }
+        )
+
+    } else {
+        let message = 'Password and confirm password does not match.'
+        res.render('create-business-profile', {error: true, message, profile: profile})
+    }
+})
 
 // return 404 error
 app.get('*', (req, res) => {
