@@ -301,6 +301,12 @@ nav a {
     padding: 15px;
 }
 
+#business-profile form p {
+    text-align: center;
+    font-weight: bold;
+    margin-bottom: 5px;
+}
+
 #business-profile .form-input {
     margin-bottom: 8px;
     display: flex;
@@ -313,6 +319,21 @@ nav a {
 
 #business-profile .form-input input, #business-profile .form-input select {
     width: 70%;
+    border: 1px solid #979797;
+}
+
+#business-profile .form-input input:focus, #business-profile .form-input select:focus {
+    border-color: #fcae1e;
+}
+
+#business-profile input[type='submit'] {
+    padding: 6px;
+    color: #fff;
+    background-color: #fcae1e;
+    font-size: 20px;
+    border: 1px solid #fcae1e;
+    margin-left: auto;
+    display: block;
 }
 
 
