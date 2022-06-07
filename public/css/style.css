@@ -122,6 +122,15 @@ nav a {
     margin-bottom: 10px;
 }
 
+.access-point form a {
+    text-decoration: none;
+    color: #4083d0;
+    font-weight: bold;
+}
+
+.access-point form a:hover {
+    text-decoration: underline #4083d0;
+}
 
 #intro {
     height: 380px;
