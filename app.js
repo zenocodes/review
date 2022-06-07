@@ -1,7 +1,6 @@
 import express from 'express'
 import bcrypt from 'bcrypt'
 import mysql from 'mysql'
-// import { render } from 'ejs'
 
 const app = express()
 
@@ -10,7 +9,7 @@ const connection = mysql.createConnection({
     host: 'localhost',
     user: 'root',
     password: '',
-    database: 'review_db'
+    database: 'review'
 })
 
 // set a tempate engine for the app, ejs (embedded javascript)
