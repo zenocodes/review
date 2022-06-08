@@ -2,19 +2,24 @@
 
     <div id="business-profile" class="container">
         <h1>Create Your Business Profile</h1>
-        <form action="create-business-profile" method="post">
+        <form action="/business/create-profile" method="post">
+
+            <% if(error) { %>
+                <h2 class="error"><%= message %></h2>
+            <% } %>
+
             <p>Business Details</p>
             <div class="form-input">
                 <label for="">Name of Business</label>
-                <input type="text" name="businessName" id="" required>
+                <input type="text" name="businessName" id="" required value="<%= profile.business.name %>">
             </div>
             <div class="form-input">
                 <label for="">Business Email</label>
-                <input type="email" name="businessEmail" id="" required>
+                <input type="email" name="businessEmail" id="" required value="<%= profile.business.email %>">
             </div>
             <div class="form-input">
                 <label for="">Tag Line</label>
-                <input type="text" name="tagLine" id="" required>
+                <input type="text" name="tagLine" id="" required value="<%= profile.business.tagLine %>">
             </div>
             <div class="form-input">
                 <label for="">Business Category</label>
@@ -24,32 +29,32 @@
             </div>
             <div class="form-input">
                 <label for="">Business Description</label>
-                <input type="text" name="businessDescription" id="" required>
+                <input type="text" name="businessDescription" id="" required value="<%= profile.business.description %>">
             </div>
             <div class="form-input">
                 <label for="">Business Location</label>
-                <input type="text" name="businessLocation" id="" required>
+                <input type="text" name="businessLocation" id="" required value="<%= profile.business.location %>">
             </div>
             <p>Representative Details</p>
             <div class="form-input">
                 <label for="">Contact Person</label>
-                <input type="text" name="adminName" id="" required>
+                <input type="text" name="adminName" id="" required value="<%= profile.rep.name %>">
             </div>
             <div class="form-input">
                 <label for="">Phone number</label>
-                <input type="text" name="adminPhoneNumber" id="" required>
+                <input type="text" name="adminPhoneNumber" id="" required value="<%= profile.rep.contacts %>">
             </div>
             <div class="form-input">
                 <label for="">Email address</label>
-                <input type="email" name="adminEmail" id="" required>
+                <input type="email" name="adminEmail" id="" required value="<%= profile.rep.email %>">
             </div>
             <div class="form-input">
                 <label for="">Password</label>
-                <input type="password" name="adminPassword" id="" required>
+                <input type="password" name="adminPassword" id="" required value="<%= profile.rep.password %>">
             </div>
             <div class="form-input">
                 <label for="">Confirm Password</label>
-                <input type="password" name="adminConfirmPassword" id="" required>
+                <input type="password" name="adminConfirmPassword" id="" required value="<%= profile.rep.cPassword %>">
             </div>
             <input type="submit" value="Create Profile">
         </form>
