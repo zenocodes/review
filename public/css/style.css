@@ -17,10 +17,12 @@
 
 .error {
     color: #fff;
-    background-color: #ff0000;
+    background-color: #e84c4c;
     padding: 10px;
     text-align: center;
     border-radius: 5px;
+    font-size: 16px;
+    font-weight: lighter;
 }
 
 .section-title {
