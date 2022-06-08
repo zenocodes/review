@@ -1,0 +1,20 @@
+<%- include('partials/header') %>
+
+<main class="access-point">
+    <form action="/business/login" method="post">
+        <p class="form-title">Log In for Business</p>
+
+        <% if(error) { %>
+            <p class="error"><%= message %></p>
+        <% } %>
+
+        <label for="">Email Address (for Business)</label>
+        <input type="email" name="email" id="" value="<%= profile.businessEmail %>" required>
+        <label for="">Password</label>
+        <input type="password" name="password" id="" value="<%= profile.businessPassword %>" required minlength="8">
+        <input type="submit" value="Log In">
+        <p>Don't have a business profile? <a href="/business/create-profile">Create One</a></p>
+    </form>
+</main>
+
+<!-- <%- include('partials/footer') %> -->
