@@ -136,12 +136,29 @@ app.post('/signup', (req, res) => {
 })
 
 // display create business profile form
-app.get('/create-business-profile', (req, res) => {
-    res.render('create-business-profile')
+app.get('/business/create-profile', (req, res) => {
+    const profile = {
+        business: {
+            name: '',
+            email: '',
+            tagLine: '',
+            category: '',
+            description: '',
+            location: ''
+        },
+        rep: {
+            name: '',
+            contacts: '',
+            email: '',
+            password: '',
+            cPassword: ''
+        }
+    }
+    res.render('create-business-profile', {error: false, profile: profile})
 })
 
 // submit create business profile form
-app.post('/create-business-profile', (req, res) => {
+app.post('/business/create-profile', (req, res) => {
 
     const profile = {
         business: {
@@ -201,6 +218,49 @@ app.post('/create-business-profile', (req, res) => {
         res.render('create-business-profile', {error: true, message, profile: profile})
     }
 })
+
+// display business login form
+app.get('/business/login', (req, res) => {
+
+    const profile = {
+        businessEmail: '',
+        businessPassword: ''
+    }
+
+    res.render('login-business', {error: false, profile: profile})
+
+})
+
+// submit business login form
+app.post('/business/login', (req, res) => {
+
+    const profile = {
+        businessEmail: req.body.email,
+        businessPassword: req.body.password
+    }
+
+    let sql = `SELECT * FROM business_profile WHERE b_email = ${profile.businessEmail}`
+
+    connection.query(
+        sql, (error, results) => {
+            if(results.length > 0) {
+                bcrypt.compare(profile.businessPassword, results[0].b_password, (error, matches) => {
+                    if(matches) {
+                        res.send('redirect to business dashboard')
+                    } else {
+                        let message = 'Incorrect Password.'
+                        res.render('login-business', {error: true, message: message, profile: profile})
+                    }
+                })
+            } else {
+                let message = 'Business profile does not exist. Please create one.'
+                res.render('login-business', {error: true, message: message, profile: profile})
+            }
+        }
+    )
+
+})
+
 
 // return 404 error
 app.get('*', (req, res) => {
