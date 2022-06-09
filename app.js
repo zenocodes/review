@@ -21,18 +21,12 @@ app.use(express.static('public'))
 // configuration to access form information
 app.use(express.urlencoded({extended:false}))
 
-const users = [
-    {
-        id: 2,
-        fullname: 'Valarie Tila',
-        email: 'valarie@review.com',
-        password: '$2b$10$Mcjt.gCN82L3DTk2EFZkO.Rnk1j2KBu47ko734gTnwpqJWFoZ/10O'
-      }
-]
-
+// home page
 app.get('/', (req, res) => {
     res.render('index')
 })
+
+/* reviewers' routes */
 
 // display login form 
 app.get('/login' , (req, res) => {
@@ -54,7 +48,7 @@ app.post('/login', (req, res) => {
                 // authenticate
                 bcrypt.compare(req.body.password, results[0].password, (error, matches) => {
                     if(matches) {
-                        res.redirect('/')
+                        res.send('user successfully logged in')
                     } else {
                         const user = {
                             email: req.body.email,
@@ -135,6 +129,10 @@ app.post('/signup', (req, res) => {
 
 })
 
+/* .reviewers' routes */
+
+/* business routes */
+
 // display create business profile form
 app.get('/business/create-profile', (req, res) => {
     const profile = {
@@ -205,7 +203,7 @@ app.post('/business/create-profile', (req, res) => {
                                 hash
                             ], 
                             (error, results) => {
-                                res.send('business profile successfully created')
+                                res.redirect('/business/login')
                             }
                         )
                     })
@@ -239,14 +237,15 @@ app.post('/business/login', (req, res) => {
         businessPassword: req.body.password
     }
 
-    let sql = `SELECT * FROM business_profile WHERE b_email = ${profile.businessEmail}`
+    let sql = 'SELECT * FROM business_profile WHERE b_email = ?'
 
     connection.query(
-        sql, (error, results) => {
+        sql, [profile.businessEmail],
+        (error, results) => {
             if(results.length > 0) {
                 bcrypt.compare(profile.businessPassword, results[0].b_password, (error, matches) => {
                     if(matches) {
-                        res.send('redirect to business dashboard')
+                        res.redirect('/business/dashboard')
                     } else {
                         let message = 'Incorrect Password.'
                         res.render('login-business', {error: true, message: message, profile: profile})
@@ -261,6 +260,12 @@ app.post('/business/login', (req, res) => {
 
 })
 
+// business dashboard
+app.get('/business/dashboard', (req, res) => {
+    res.render('business-profile')
+})
+
+/* .business routes */
 
 // return 404 error
 app.get('*', (req, res) => {
