@@ -1,8 +1,33 @@
 <%- include('partials/header') %>
 
-<main class="container">
-    <h1><%= locals.business %></h1>
-    <p>Welcome, <%= locals.username %></p>
+<main class="container" id="business-dashboard">
+
+    <div id="profile">
+        <div class="image">
+            <img src="" alt="">
+        </div>
+        <table>
+            <tbody>
+                <tr>
+                    <td class="info">Name</td>
+                    <td class="detail"><%= locals.business.b_name %></td>
+                </tr>
+                <tr>
+                    <td class="info">Category</td>
+                    <td class="detail"><%= locals.business.b_category %></td>
+                </tr>
+                <tr>
+                    <td class="info">Description</td>
+                    <td class="detail"><%= locals.business.b_description %></td>
+                </tr>
+            </tbody>
+        </table>
+        
+    </div>
+    <div id="reviews">
+
+    </div>
+    
 </main>
 
 
