@@ -375,6 +375,16 @@ nav a {
     width: 35%;
 }
 
+#business-dashboard #profile a {
+    background-color: #417741;
+    border: 1px solid #417741;
+    color: #fff;
+    padding: 6px 8px;
+    text-decoration: none;
+    border-radius: 5px;
+    font-weight: bold;
+}
+
 #business-dashboard #reviews {
     width: 55%;
 }
