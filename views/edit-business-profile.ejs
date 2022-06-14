@@ -1,0 +1,79 @@
+<%- include('partials/header') %>
+
+    <div id="business-profile" class="container">
+        <h1>Edit Business Profile</h1>
+        <form action="/business/edit-profile/<%= locals.business.b_id %>" method="post">
+
+            <% if(error) { %>
+                <h2 class="error"><%= message %></h2>
+            <% } %>
+
+            <p>Business Details</p>
+            <div class="form-input">
+                <label for="">Name of Business</label>
+                <input type="text" name="businessName" id="" required value="<%= profile.business.name %>">
+            </div>
+            <div class="form-input">
+                <label for="">Business Email</label>
+                <input type="email" name="businessEmail" id="" required value="<%= profile.business.email %>">
+            </div>
+            <div class="form-input">
+                <label for="">Tag Line</label>
+                <input type="text" name="tagLine" id="" required value="<%= profile.business.tagLine %>">
+            </div>
+            <div class="form-input">
+                <label for="">Business Category</label>
+                <select name="businessCategory" id="business-category" required>
+                    <option value="<%= profile.business.category %>" selected><%= profile.business.category %></option>
+                    <option value="">Select category</option>
+                </select>
+            </div>
+            <div class="form-input">
+                <label for="">Business Description</label>
+                <input type="text" name="businessDescription" id="" required value="<%= profile.business.description %>">
+            </div>
+            <div class="form-input">
+                <label for="">Business Location</label>
+                <input type="text" name="businessLocation" id="" required value="<%= profile.business.location %>">
+            </div>
+            <p>Representative Details</p>
+            <div class="form-input">
+                <label for="">Contact Person</label>
+                <input type="text" name="adminName" id="" required value="<%= profile.rep.name %>">
+            </div>
+            <div class="form-input">
+                <label for="">Phone number</label>
+                <input type="text" name="adminPhoneNumber" id="" required value="<%= profile.rep.contacts %>">
+            </div>
+            <div class="form-input">
+                <label for="">Email address</label>
+                <input type="email" name="adminEmail" id="" required value="<%= profile.rep.email %>">
+            </div>
+            <div class="form-input">
+                <label for="">Enter Password</label>
+                <input type="password" name="adminPassword" id="" required value="<%= profile.rep.password %>">
+            </div>
+            <input type="submit" value="Update">
+        </form>
+    </div>
+
+    <script>
+
+        const categories = [
+            'Hotels', 
+            'Food and drink businesses',
+            'Health and beauty businesses'
+        ]
+
+        let selectBusinessCategory = document.querySelector('#business-category')
+
+        categories.forEach(category => {
+            let option = document.createElement('option')
+            option.textContent = option.value = category
+            selectBusinessCategory.appendChild(option)
+        })
+
+
+    </script>
+
+<%- include('partials/footer') %>
