@@ -1,5 +1,5 @@
 import express from 'express'
-import bcrypt from 'bcrypt'
+import bcrypt, { compare } from 'bcrypt'
 import mysql from 'mysql'
 import session from 'express-session'
 
@@ -38,7 +38,7 @@ app.use((req, res, next) => {
         res.locals.isLoggedIn = true
         res.locals.username = req.session.username
         res.locals.business = req.session.profile
-        console.log(`logged in as a ${req.session.user}`)
+        console.log(`logged in as a ${req.session.user}. userID: ${res.locals.business.b_id}`)
     }
     next()
 })
@@ -300,6 +300,70 @@ app.get('/business/dashboard', (req, res) => {
         res.redirect('/business/login')
     }
     
+})
+
+// display edit business profile form
+app.get('/business/edit-profile/:id', (req, res) => {
+    let sql = 'SELECT * FROM business_profile WHERE b_id = ?'
+
+    connection.query(
+        sql, [req.session.userID],
+        (error, results) => {
+
+            const profile = {
+                business: {
+                    name: results[0].b_name,
+                    email: results[0].b_email,
+                    tagLine: results[0].b_tag_line,
+                    category: results[0].b_category,
+                    description: results[0].b_description,
+                    location: results[0].b_location
+                },
+                rep: {
+                    name: results[0].b_contact_person,
+                    contacts: results[0].b_phone_number,
+                    email: results[0].b_email_address,
+                    password: ''
+                }
+            }
+
+            res.render('edit-business-profile', {error: false, profile: profile})
+        }
+    )
+
+})
+
+// submit edit business profile form
+app.post('/business/edit-profile/:id', (req, res) => {
+    const profile = {
+        business: {
+            name: req.body.businessName,
+            email: req.body.businessEmail,
+            tagLine: req.body.tagLine,
+            category: req.body.businessCategory,
+            description: req.body.businessDescription,
+            location: req.body.businessLocation
+        },
+        rep: {
+            name: req.body.adminName,
+            contacts: req.body.adminPhoneNumber,
+            email: req.body.adminEmail,
+            password: req.body.adminPassword
+        }
+    }
+
+    // check password
+    bcrypt.compare(profile.rep.password, res.locals.b_password, (error, matches) => {
+        if(matches) {
+
+        } else {
+            // incorrect password
+            let message = 'Incorrect Password'
+            res.render('edit-business-profile', {error: true, message: message, profile: profile})
+        }
+    })
+    
+
 })
 
 /* .business routes */
