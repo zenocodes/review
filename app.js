@@ -1,5 +1,5 @@
 import express from 'express'
-import bcrypt, { compare } from 'bcrypt'
+import bcrypt from 'bcrypt'
 import mysql from 'mysql'
 import session from 'express-session'
 
@@ -38,12 +38,11 @@ app.use((req, res, next) => {
         res.locals.isLoggedIn = true
         res.locals.username = req.session.username
         res.locals.business = req.session.profile
-        console.log(`logged in as a ${req.session.user}. userID: ${res.locals.business.b_id}`)
     }
     next()
 })
 
-// home page
+// landing page
 app.get('/', (req, res) => {
     res.render('index')
 })
@@ -73,8 +72,7 @@ app.post('/login', (req, res) => {
                         req.session.userID = results[0].userID
                         req.session.username = results[0].fullname.split(' ')[0]
                         req.session.user = 'reviewer'
-                        // res.send(`${req.session.userID} : ${req.session.username}`)
-                        res.redirect('/')
+                        res.redirect('/app')
                     } else {
                         const user = {
                             email: req.body.email,
@@ -153,6 +151,11 @@ app.post('/signup', (req, res) => {
         res.render('signup', {error: true, message: message,user: user})
     }
 
+})
+
+// application homepage
+app.get('/app', (req, res) => {
+    res.send('begin reviewing here')
 })
 
 /* .reviewers' routes */
@@ -295,7 +298,16 @@ app.post('/business/login', (req, res) => {
 app.get('/business/dashboard', (req, res) => {
 
     if(res.locals.isLoggedIn && req.session.user === 'business') {
-        res.render('business-profile')
+
+        let sql = 'SELECT * FROM business_profile WHERE b_id = ?'
+
+        connection.query(
+            sql, [req.session.userID], 
+            (error, results) => {
+                res.render('business-profile', {profile: results[0]})
+            }
+        )
+
     } else {
         res.redirect('/business/login')
     }
@@ -353,9 +365,27 @@ app.post('/business/edit-profile/:id', (req, res) => {
     }
 
     // check password
-    bcrypt.compare(profile.rep.password, res.locals.b_password, (error, matches) => {
+    bcrypt.compare(profile.rep.password, res.locals.business.b_password, (error, matches) => {
         if(matches) {
-
+            let sql = 'UPDATE business_profile SET b_name = ?, b_email = ?, b_tag_line = ?, b_category = ?, b_description = ?, b_location = ?, b_contact_person = ?, b_phone_number = ?, b_email_address = ? WHERE b_id = ?'
+            connection.query(
+                sql, 
+                [
+                    profile.business.name,
+                    profile.business.email,
+                    profile.business.tagLine,
+                    profile.business.category,
+                    profile.business.description,
+                    profile.business.location,
+                    profile.rep.name,
+                    profile.rep.contacts,
+                    profile.rep.email,
+                    parseInt(req.params.id)
+                ],
+                (error, results) => {
+                    res.redirect('/business/dashboard')
+                }
+            )
         } else {
             // incorrect password
             let message = 'Incorrect Password'
