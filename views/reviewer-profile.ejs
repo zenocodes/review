@@ -1,0 +1,10 @@
+<%- include('partials/header') %>
+
+<main id="reviwer-profile">
+    <img src="/uploads/<%= profile.photoURL %>" alt="">
+    <h1><%= profile.name %></h1>
+    <p><%= profile.email %></p>
+    <a href="/edit-profile/<%= profile.id %>">Edit Profile</a>
+</main>
+
+<%- include('partials/footer') %>
