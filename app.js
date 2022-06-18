@@ -2,8 +2,10 @@ import express from 'express'
 import bcrypt from 'bcrypt'
 import mysql from 'mysql'
 import session from 'express-session'
+import multer from 'multer'
 
 const app = express()
+const upload = multer({dest: 'public/uploads/'})
 
 // create connection with the database
 const connection = mysql.createConnection({
@@ -33,10 +35,10 @@ app.use(express.urlencoded({extended:false}))
 app.use((req, res, next) => {
     if(req.session.userID === undefined) {
         res.locals.isLoggedIn = false
-        console.log('user not signed in')
     } else {
         res.locals.isLoggedIn = true
         res.locals.username = req.session.username
+        res.locals.user = req.session.user
         res.locals.business = req.session.profile
     }
     next()
@@ -155,7 +157,103 @@ app.post('/signup', (req, res) => {
 
 // application homepage
 app.get('/app', (req, res) => {
-    res.send('begin reviewing here')
+    if(res.locals.isLoggedIn) {
+        res.render('reviewer-dashboard')
+    } else {
+        res.redirect('/login')
+    }
+})
+
+// reviewer's profile
+app.get('/profile', (req, res) => {
+    if(res.locals.isLoggedIn) {
+
+        let sql = 'SELECT * FROM users WHERE userID = ?'
+
+        connection.query(
+            sql, [req.session.userID],
+            (error, results) => {
+
+                const profile = {
+                    id: results[0].userID,
+                    name: results[0].fullname,
+                    email: results[0].email,
+                    photoURL: results[0].photoURL
+                }
+
+                res.render('reviewer-profile', {profile: profile})
+            }
+        )
+
+        
+    } else {
+        res.redirect('/login')
+    }
+
+})
+
+// display edit profile form
+app.get('/edit-profile/:id', (req, res) => {
+    if(res.locals.isLoggedIn) {
+
+        let sql = 'SELECT * FROM users WHERE userID = ?'
+
+        connection.query(
+            sql, [parseInt(req.params.id)], 
+            (error, results) => {
+                const profile = {
+                    id: results[0].userID,
+                    name: results[0].fullname,
+                    email: results[0].email,
+                    phoneNumber: results[0].phone_number,
+                    location: results[0].location,
+                    facebookURL: results[0].facebookURL,
+                    twitterURL: results[0].twitterURL,
+                    instagramURL: results[0].instagramURL,
+                    photoURL: results[0].photoURL
+                }
+                res.render('reviewer-edit-profile', {profile: profile})
+            }
+        )
+
+    } else {
+        res.redirect('/login')
+    }
+})
+
+// submit edit profile
+app.post('/edit-profile/:id', upload.single('photoURL'), (req, res) => {
+    const profile = {
+        name: req.body.fullname,
+        email: req.body.email,
+        phoneNumber: req.body.phoneNumber,
+        location: req.body.location,
+        facebookURL: req.body.facebookURL,
+        twitterURL: req.body.twitterURL,
+        instagramURL: req.body.instagramURL,
+        photoURL: req.file.filename
+    }
+
+    let sql = 'UPDATE users SET fullname = ?, email = ?, phone_number = ?, location = ?, facebookURL = ?, twitterURL = ?, instagramURL = ?, photoURL = ? WHERE userID = ?'
+
+    connection.query(
+        sql,
+        [
+            profile.fullname,
+            profile.email,
+            profile.phoneNumber,
+            profile.location,
+            profile.facebookURL,
+            profile.twitterURL,
+            profile.instagramURL,
+            profile.photoURL,
+            req.session.userID
+        ],
+        (error, results) => {
+            res.redirect('/profile')
+        }
+    )
+
 })
 
 /* .reviewers' routes */
