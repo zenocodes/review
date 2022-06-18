@@ -1,0 +1,52 @@
+<%- include('partials/header') %>
+
+<main id="review-edit-profile">
+    <form action="/edit-profile/<%= profile.id %>" method="post" enctype="multipart/form-data">
+        <h1>Edit Profile</h1>
+
+        <div class="form-input">
+            <label for="">Name</label>
+            <input type="text" name="fullname" id="" value="<%= profile.name %>">
+        </div>
+
+        <div class="form-input">
+            <label for="">Email</label>
+            <input type="email" name="email" id="" value="<%= profile.email %>">
+        </div>
+
+        <div class="form-input">
+            <label for="">Phone Number</label>
+            <input type="text" name="phoneNumber" id="" value="<%= profile.phoneNumber %>">
+        </div>
+
+        <div class="form-input">
+            <label for="">Location</label>
+            <input type="text" name="location" id="" value="<%= profile.location %>">
+        </div>
+
+        <div class="form-input">
+            <label for="">Facebook Profile Link</label>
+            <input type="text" name="facebookURL" id="" value="<%= profile.facebookURL %>">
+        </div>
+
+        <div class="form-input">
+            <label for="">Twitter Profile Link</label>
+            <input type="text" name="twitterURL" id="" value="<%= profile.twitterURL %>">
+        </div>
+
+        <div class="form-input">
+            <label for="">Instagram Profile Link</label>
+            <input type="text" name="instagramURL" id="" value="<%= profile.instagramURL %>">
+        </div>
+
+        <div class="form-input">
+            <label for="">Profile Picture</label>
+            <input type="file" name="photoURL" id="">
+        </div>
+
+        <input type="submit" value="Update Profile">
+
+    </form>
+</main>
+
+<%- include('partials/footer') %>
