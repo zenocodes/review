@@ -231,28 +231,57 @@ app.post('/edit-profile/:id', upload.single('photoURL'), (req, res) => {
         facebookURL: req.body.facebookURL,
         twitterURL: req.body.twitterURL,
         instagramURL: req.body.instagramURL,
-        photoURL: req.file.filename
+        photoURL: undefined
     }
 
-    let sql = 'UPDATE users SET fullname = ?, email = ?, phone_number = ?, location = ?, facebookURL = ?, twitterURL = ?, instagramURL = ?, photoURL = ? WHERE userID = ?'
+    if(req.file) {
 
-    connection.query(
-        sql,
-        [
-            profile.fullname,
-            profile.email,
-            profile.phoneNumber,
-            profile.location,
-            profile.facebookURL,
-            profile.twitterURL,
-            profile.instagramURL,
-            profile.photoURL,
-            req.session.userID
-        ],
-        (error, results) => {
-            res.redirect('/profile')
-        }
-    )
+        profile.photoURL = req.file.filename
+
+        let sql = 'UPDATE users SET fullname = ?, email = ?, phone_number = ?, location = ?, facebookURL = ?, twitterURL = ?, instagramURL = ?, photoURL = ? WHERE userID = ?'
+        
+
+        connection.query(
+            sql,
+            [
+                profile.fullname,
+                profile.email,
+                profile.phoneNumber,
+                profile.location,
+                profile.facebookURL,
+                profile.twitterURL,
+                profile.instagramURL,
+                profile.photoURL,
+                req.session.userID
+            ],
+            (error, results) => {
+                res.redirect('/profile')
+                console.log(profile)
+            }
+        )
+    } else {
+
+        let sql = 'UPDATE users SET fullname = ?, email = ?, phone_number = ?, location = ?, facebookURL = ?, twitterURL = ?, instagramURL = ? WHERE userID = ?'
+
+        connection.query(
+            sql,
+            [
+                profile.fullname,
+                profile.email,
+                profile.phoneNumber,
+                profile.location,
+                profile.facebookURL,
+                profile.twitterURL,
+                profile.instagramURL,
+                req.session.userID
+            ],
+            (error, results) => {
+                res.redirect('/profile')
+                console.log(profile)
+            }
+        )
+
+    }
 
 })
 
