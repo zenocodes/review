@@ -178,6 +178,11 @@ app.get('/profile', (req, res) => {
                     id: results[0].userID,
                     name: results[0].fullname,
                     email: results[0].email,
+                    phoneNumber: results[0].phone_number,
+                    location: results[0].location,
+                    facebookURL: results[0].facebookURL,
+                    twitterURL: results[0].twitterURL,
+                    instagramURL: results[0].instagramURL,
                     photoURL: results[0].photoURL
                 }
 
@@ -244,7 +249,7 @@ app.post('/edit-profile/:id', upload.single('photoURL'), (req, res) => {
         connection.query(
             sql,
             [
-                profile.fullname,
+                profile.name,
                 profile.email,
                 profile.phoneNumber,
                 profile.location,
@@ -266,7 +271,7 @@ app.post('/edit-profile/:id', upload.single('photoURL'), (req, res) => {
         connection.query(
             sql,
             [
-                profile.fullname,
+                profile.name,
                 profile.email,
                 profile.phoneNumber,
                 profile.location,
