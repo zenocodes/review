@@ -1,9 +1,40 @@
 <%- include('partials/header') %>
 
-<main id="reviwer-profile">
-    <img src="/uploads/<%= profile.photoURL %>" alt="">
-    <h1><%= profile.name %></h1>
-    <p><%= profile.email %></p>
+<main id="reviewer-profile">
+    <div><img src="/uploads/<%= profile.photoURL %>" alt=""></div>
+
+    <table>
+        <tbody>
+            <tr>
+                <td>Name</td>
+                <td><%= profile.name %></td>
+            </tr>
+            <tr>
+                <td>Email</td>
+                <td><%= profile.email %></td>
+            </tr>
+            <tr>
+                <td>Phone Number</td>
+                <td><%= profile.phoneNumber %></td>
+            </tr>
+            <tr>
+                <td>Location</td>
+                <td><%= profile.location %></td>
+            </tr>
+            <tr>
+                <td>Facebook</td>
+                <td><%= profile.facebookURL %></td>
+            </tr>
+            <tr>
+                <td>Twitter</td>
+                <td><%= profile.twitterURL %></td>
+            </tr>
+            <tr>
+                <td>Instagram</td>
+                <td><%= profile.instagramURL %></td>
+            </tr>
+        </tbody>
+    </table>
     <a href="/edit-profile/<%= profile.id %>">Edit Profile</a>
 </main>
 
