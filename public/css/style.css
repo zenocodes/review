@@ -407,6 +407,8 @@ nav a {
 #reviewer-profile div {
     height: 200px;
     width: 200px;
+    margin-top: 15px;
+    margin-bottom: 15px;
 }
 
 #reviewer-profile img {
@@ -415,8 +417,89 @@ nav a {
     border-radius: 50%;
 }
 
+#reviewer-profile table {
+    font-size: 23px;
+    margin-bottom: 15px;
+}
+
+#reviewer-profile table .data-point {
+    text-align: right;
+    padding-right: 15px;
+    font-weight: bold;
+}
+
+
+#reviewer-profile > a {
+    text-decoration: none;
+    background-color: #417741;
+    border: 1px solid #417741;
+    color: #fff;
+    padding: 8px 12px;
+    border-radius: 5px;
+    letter-spacing: 3px;
+}
+
+#reviewer-profile > a:hover {
+    background-color: #2f572f;
+}
+
+
 
 /* end. reviewer's profile */
+
+
+/* edit reviewer's profile */
+
+#review-edit-profile  {
+    display: flex;
+    justify-content: center;
+}
+
+#review-edit-profile form {
+    width: 50%;    
+}
+
+#review-edit-profile form h1 {
+    text-align: center;
+    margin: 12px 0;
+}
+
+#review-edit-profile form .form-input {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 10px;
+}
+
+#review-edit-profile form .form-input > * {
+    font-size: 23px;
+    width: 50%;
+}
+
+#review-edit-profile form .form-input > label {
+    text-align: right;
+    font-weight: bold;
+    padding-right: 15px;
+}
+
+#review-edit-profile form input[type='submit'] {
+    text-decoration: none;
+    background-color: #417741;
+    border: 1px solid #417741;
+    color: #fff;
+    padding: 8px 12px;
+    border-radius: 5px;
+    letter-spacing: 3px;
+    margin: 0 auto;
+    display: block;
+}
+
+#review-edit-profile form input[type='submit']:hover {
+    background-color: #2f572f;
+}
+
+
+
+/* end. edit reviewer's profile */
 
 
 footer {
