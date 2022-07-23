@@ -1,6 +1,20 @@
 <%- include('partials/header') %>
 
-reviewer's dashboard
+    <main class="container" id="reviewer-dashboard">
 
+       <% for(let business of businesses){ %>
 
-<%- include('partials/footer') %>
+            <div class="business">
+                <div class="biz-img"><img src="" alt=""></div>
+                <div class="biz-info">
+                    <p class="name"><%= business.b_name %></p>
+                    <p class="tag-line"><%= business.b_tag_line %></p>
+                    <p class="location"><%= business.b_location %></p>
+                </div>
+            </div>
+
+       <% } %>
+
+    </main>
+
+<% include('partials/footer') %>
