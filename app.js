@@ -158,7 +158,15 @@ app.post('/signup', (req, res) => {
 // application homepage
 app.get('/app', (req, res) => {
     if(res.locals.isLoggedIn) {
-        res.render('reviewer-dashboard')
+
+        connection.query(
+            'SELECT * FROM business_profile', 
+            (error, results) => {
+                res.render('reviewer-dashboard', {businesses: results})
+            }
+        )
+
+        
     } else {
         res.redirect('/login')
     }
