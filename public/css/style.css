@@ -502,6 +502,34 @@ nav a {
 /* end. edit reviewer's profile */
 
 
+/* reviwer-dashboard */
+
+#reviewer-dashboard {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+}
+
+#reviewer-dashboard .business {
+    display: flex;
+    padding: 10px;
+    margin-bottom: 15px;
+    width: 30%;
+}
+
+#reviewer-dashboard .business .biz-img {
+    width: 120px;
+    height: 120px;
+    background-color: #979797;
+    border-radius: 15px;
+}
+
+#reviewer-dashboard .business .name {
+    font-weight: bold;
+}
+
+/* end. reviewer-dashboard */
+
 footer {
     height: 60px;
     display: grid;
